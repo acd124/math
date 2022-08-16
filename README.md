@@ -1,6 +1,6 @@
 A simple nostalgic math game.
 
-[link](https://acd124.github.io/math/)
+<a href="https://acd124.github.io/math/">link</a>
 
 ### URL Params
 
