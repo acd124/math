@@ -1,123 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Math</title>
-        <style>
-            .row {
-                max-width: 30rem;
-                display: flex;
-                justify-content: space-between;
-            }
-            .number {
-                flex-grow: 1;
-                font-size: 10rem;
-                text-align: right;
-            }
-            .operation {
-                flex-grow: 0;
-            }
-            .dividor {
-                max-width: 30rem;
-                border-top: 0.5rem solid black;
-                border-radius: 0.5rem;
-            }
-            .answer,
-            .answer:focus {
-                border: none;
-                outline: none;
-                max-width: 30rem;
-                caret-color: transparent;
-            }
-            .score {
-                font-size: 2rem;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="displayBox">
-            <div class="row">
-                <span class="score" id="score">0</span>
-                <span class="score" id="timer">00:00</span>
-            </div>
-            <div class="row">
-                <span class="number" id="first"></span>
-            </div>
-            <div class="row">
-                <span class="number operation" id="op"></span>
-                <span class="number" id="second"></span>
-            </div>
-            <div class="dividor"></div>
-            <div class="row">
-                <input class="answer number" type="text" name="answer" id="answer" autofocus />
-            </div>
-        </div>
-        <script>
-            document.getElementById('answer').oninput = checkAnswer;
-            document.body.onclick = reselect;
-            const params = new URLSearchParams(window.location.search);
-            const valRange = [
-                !isNaN(parseInt(params.get('min'), 10)) ? parseInt(params.get('min'), 10) : 1,
-                !isNaN(parseInt(params.get('max'), 10)) ? parseInt(params.get('max'), 10) : 20
-            ];
-            const startTime = Date.now();
-            let op = params.get('op') ?? '+';
-            let inputs, answer;
-            let correct = 0;
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Math</title>
+    <style>
+      .row {
+        max-width: 30rem;
+        display: flex;
+        justify-content: space-between;
+      }
+      .number {
+        flex-grow: 1;
+        font-size: 10rem;
+        text-align: right;
+      }
+      .operation {
+        flex-grow: 0;
+      }
+      .dividor {
+        max-width: 30rem;
+        border-top: 0.5rem solid black;
+        border-radius: 0.5rem;
+      }
+      .answer,
+      .answer:focus {
+        border: none;
+        outline: none;
+        max-width: 30rem;
+        caret-color: transparent;
+      }
+      .score {
+        font-size: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="./README.md">docs</a>
+    <div class="displayBox">
+      <div class="row">
+        <span class="score" id="score">0</span>
+        <span class="score" id="timer">00:00</span>
+      </div>
+      <div class="row">
+        <span class="number" id="first"></span>
+      </div>
+      <div class="row">
+        <span class="number operation" id="op"></span>
+        <span class="number" id="second"></span>
+      </div>
+      <div class="dividor"></div>
+      <div class="row">
+        <input class="answer number" type="text" name="answer" id="answer" autofocus />
+      </div>
+    </div>
+    <script>
+      document.getElementById('answer').oninput = checkAnswer;
+      document.body.onclick = reselect;
+      const params = new URLSearchParams(window.location.search);
+      const valRange = [
+        !isNaN(parseInt(params.get('min'), 10)) ? parseInt(params.get('min'), 10) : 1,
+        !isNaN(parseInt(params.get('max'), 10)) ? parseInt(params.get('max'), 10) : 20
+      ];
+      const startTime = Date.now();
+      let op = params.get('op') ?? '+';
+      let inputs, answer;
+      let correct = 0;
 
-            function genNext() {
-                inputs = Array(2)
-                    .fill()
-                    .map(() => ((Math.random() * valRange[1]) | 0) + valRange[0]);
-                switch (op) {
-                    case '+': {
-                        answer = inputs[0] + inputs[1];
-                        break;
-                    }
-                    case 'x': {
-                        answer = inputs[0] * inputs[1];
-                        break;
-                    }
-                    default: {
-                        throw new Error('Unknown operation: ' + op);
-                    }
-                }
-                document.getElementById('first').innerText = inputs[0];
-                document.getElementById('second').innerText = inputs[1];
-                document.getElementById('op').innerText = op;
-            }
-            function checkAnswer() {
-                const box = document.getElementById('answer');
-                box.value = box.value.replace(/[^0-9-]/g, '');
-                const toCheck = box.value;
-                if (answer.toString().length === toCheck.length) {
-                    box.value = '';
-                }
-                if (answer.toString() === toCheck) {
-                    correct += 1;
-                    document.getElementById('score').innerText = correct;
-                    genNext();
-                }
-            }
-            function reselect() {
-                const toSelect = document.getElementById('answer');
-                toSelect.focus();
-                toSelect.select();
-            }
-            genNext();
-            reselect();
+      function genNext() {
+        inputs = Array(2)
+          .fill()
+          .map(() => ((Math.random() * valRange[1]) | 0) + valRange[0]);
+        switch (op) {
+          case '+': {
+            answer = inputs[0] + inputs[1];
+            break;
+          }
+          case 'x': {
+            answer = inputs[0] * inputs[1];
+            break;
+          }
+          default: {
+            throw new Error('Unknown operation: ' + op);
+          }
+        }
+        document.getElementById('first').innerText = inputs[0];
+        document.getElementById('second').innerText = inputs[1];
+        document.getElementById('op').innerText = op;
+      }
+      function checkAnswer() {
+        const box = document.getElementById('answer');
+        box.value = box.value.replace(/[^0-9-]/g, '');
+        const toCheck = box.value;
+        if (answer.toString().length === toCheck.length) {
+          box.value = '';
+        }
+        if (answer.toString() === toCheck) {
+          correct += 1;
+          document.getElementById('score').innerText = correct;
+          genNext();
+        }
+      }
+      function reselect() {
+        const toSelect = document.getElementById('answer');
+        toSelect.focus();
+        toSelect.select();
+      }
+      genNext();
+      reselect();
 
-            setInterval(() => {
-                const since = Date.now() - startTime;
-                const seconds = Math.floor(since / 1000);
-                const minutes = Math.floor(seconds / 60);
-                const secs = seconds % 60;
-                document.getElementById('timer').innerText = `${minutes
-                    .toString()
-                    .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-            }, 1000);
-        </script>
-    </body>
+      setInterval(() => {
+        const since = Date.now() - startTime;
+        const seconds = Math.floor(since / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        document.getElementById('timer').innerText = `${minutes.toString().padStart(2, '0')}:${secs
+          .toString()
+          .padStart(2, '0')}`;
+      }, 1000);
+    </script>
+  </body>
 </html>

@@ -1,4 +1,6 @@
-A simple nostolgic math game.
+A simple nostalgic math game.
+
+[link](https://acd124.github.io/math/)
 
 ### URL Params
 
