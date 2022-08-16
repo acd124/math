@@ -68,6 +68,10 @@
       let inputs, answer;
       let correct = 0;
 
+      const ping = new Audio('./ping.mp3');
+      const pong = new Audio('./pong.mp3');
+      const dong = new Audio('./dong.mp3');
+
       function genNext() {
         inputs = Array(2)
           .fill()
@@ -95,10 +99,19 @@
         const toCheck = box.value;
         if (answer.toString().length === toCheck.length) {
           box.value = '';
+          dong.currentTime = 0;
+          dong.play();
         }
         if (answer.toString() === toCheck) {
           correct += 1;
           document.getElementById('score').innerText = correct;
+          if (correct % 10 === 0) {
+            ping.currentTime = 0;
+            ping.play();
+          } else {
+            pong.currentTime = 0;
+            pong.play();
+          }
           genNext();
         }
       }
