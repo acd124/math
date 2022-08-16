@@ -99,8 +99,6 @@
         const toCheck = box.value;
         if (answer.toString().length === toCheck.length) {
           box.value = '';
-          dong.currentTime = 0;
-          dong.play();
         }
         if (answer.toString() === toCheck) {
           correct += 1;
@@ -113,6 +111,9 @@
             pong.play();
           }
           genNext();
+        } else {
+          dong.currentTime = 0;
+          dong.play();
         }
       }
       function reselect() {
