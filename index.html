@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Math</title>
+    <meta name="description" content="A simple nostalgic math game">
     <style>
       .row {
         max-width: 30rem;
@@ -34,25 +35,16 @@
       .score {
         font-size: 2rem;
       }
+      .beside {
+        float: left;
+      }
+      .info {
+        margin-left: 4rem;
+      }
     </style>
   </head>
   <body>
-    <a href="./README.md">docs</a>
-    <div>
-      <p>
-        A simple nostalgic math game.
-      </p>
-      <h3>
-        URL Parameters
-      </h3>
-      <ul>
-        <li><code>op</code>: math operation. one of +, or x</li>
-        <li><code>min</code>: min input number</li>
-        <li><code>max</code>: max input number</li>
-      </ul>
-    </div>
-
-    <div class="displayBox">
+    <div class="displayBox beside">
       <div class="row">
         <span class="score" id="score">0</span>
         <span class="score" id="timer">00:00</span>
@@ -68,6 +60,16 @@
       <div class="row">
         <input class="answer number" type="text" name="answer" id="answer" autofocus />
       </div>
+    </div>
+    <div class="beside info">
+      <h4>
+        URL Parameters
+      </h4>
+      <ul>
+        <li><code>op</code>: math operation. one of +, or x</li>
+        <li><code>min</code>: min input number</li>
+        <li><code>max</code>: max input number</li>
+      </ul>
     </div>
     <script>
       document.getElementById('answer').oninput = checkAnswer;
